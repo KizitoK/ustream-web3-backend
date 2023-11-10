@@ -63,12 +63,12 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email })
+        const { username, password } = req.body;
+        const user = await User.findOne({ username })
         if (!user) {
             res.status(401).send({
                 data: {},
-                message: `${email} not found!`,
+                message: `${username} not found!`,
                 status: 1,
             });
         } else if (user) {
@@ -82,7 +82,7 @@ const login = async (req, res) => {
                 } else if (!result) {
                     res.status(401).send({
                         data: {},
-                        message: "Email or password is incorrect",
+                        message: "username or password is incorrect",
                         status: 1,
                     });
                 } else {
@@ -96,7 +96,7 @@ const login = async (req, res) => {
                         data: {
                             token,
                             id: user._id,
-                            email: user.email,
+                            username: user.username,
                         },
                         message: "logged in successfully",
                         status: 0,
